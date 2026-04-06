@@ -13,7 +13,7 @@ llm = ChatGroq(
 
 # 3. Invoke the model
 try:
-    response = llm.invoke("Explain blockchain in 30 words")
+    response = llm.invoke("what is the capital of France?")
     print(response.content)
 except Exception as e:
     print(f"Error: {e}")
