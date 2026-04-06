@@ -4,17 +4,13 @@ import os
 
 load_dotenv()
 
-# Token can be provided in multiple ways:
-# 1. Constructor mein diya token (api_token parameter)
-# 2. HUGGINGFACEHUB_API_TOKEN env var
-# 3. HF_TOKEN env var
-# 4. ~/.cache/huggingface/token (CLI login)
-# 5. HUGGINGFACE_TOKEN env var
+
 
 llm = HuggingFaceEndpoint(
     repo_id="meta-llama/Llama-3.1-8B-Instruct",
     # huggingfacehub_api_token=os.getenv("HUGGINGFACEHUB_API_TOKEN"),  # uncomment kar
     #pata hain es line ke bina bhi chaljayega
+    #Tera token .env mein HUGGINGFACEHUB_API_TOKEN ke naam se pada hai — load_dotenv() us token ko environment mein load kar deta hai, aur HuggingFaceEndpoint automatically usse pick kar leta hai even if tu explicitly pass nahi karta constructor mein.
     
     task="conversational",
     max_new_tokens=100,
