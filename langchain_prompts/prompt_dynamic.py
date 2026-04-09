@@ -21,11 +21,11 @@ length_input = st.selectbox( "Select Explanation Length", ["Short (1-2 paragraph
 template = load_prompt('template.json')
 
 #fill the placeholders
-prompt = template.invoke({
-    'paper_input':paper_input,
-    'style_input':style_input,
-    'length_input':length_input
-})
+# prompt = template.invoke({
+#     'paper_input':paper_input,
+#     'style_input':style_input,
+#     'length_input':length_input
+# })
 
 
 model = ChatGroq(
@@ -37,5 +37,14 @@ model = ChatGroq(
 
 
 if st.button('Summarize'):
-    result = model.invoke(prompt)
+    # result = model.invoke(prompt)
+    #you see we are invoking two times on at here and one at template.invoke, we can minimise it
+
+    chain = template | model
+    result = chain.invoke({
+    'paper_input':paper_input,
+    'style_input':style_input,
+    'length_input':length_input
+    }) #phele template invoke hua, toh wahi template wala chiz model ke invoke main chalagaya
+
     st.write(result.content)
