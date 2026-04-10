@@ -1,4 +1,5 @@
 from dotenv import load_dotenv
+from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 from langchain_groq import ChatGroq
 from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 import os
@@ -12,14 +13,17 @@ model = ChatGroq(
     temperature=0.4
 )
 
-chathistory = []
+chathistory = [
+    SystemMessage("You are a helpful AI assistant"),
+
+]
 
 while True:
     user_input = input("You: ") 
-    chathistory.append(user_input)
+    chathistory.append(HumanMessage(content=user_input))
     if user_input == 'exit':
         break
     result = model.invoke(chathistory)
-    chathistory.append(result.content)
+    chathistory.append(AIMessage(content=result.content))
     print("AI: ", result.content)
 print(chathistory)
