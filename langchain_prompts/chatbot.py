@@ -12,9 +12,14 @@ model = ChatGroq(
     temperature=0.4
 )
 
+chathistory = []
+
 while True:
     user_input = input("You: ") 
+    chathistory.append(user_input)
     if user_input == 'exit':
         break
-    result = model.invoke(user_input)
+    result = model.invoke(chathistory)
+    chathistory.append(result.content)
     print("AI: ", result.content)
+print(chathistory)
